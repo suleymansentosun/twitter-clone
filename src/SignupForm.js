@@ -217,6 +217,7 @@ function SignupForm() {
       <TextField
         id="phone"
         name="phone"
+        placeholder="Must have country code without the + sign."
         type="tel"
         label="Phone"
         margin="normal"

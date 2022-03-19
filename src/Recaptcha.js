@@ -45,7 +45,7 @@ function Recaptcha(props) {
   const element = useRef(null);
   const { signupWithPhone } = useAuth();
 
-  const phoneNumber = `+9${formValues.phone}`;
+  const phoneNumber = `+${formValues.phone}`;
 
   useEffect(() => {
     const recaptchaVerifier = new RecaptchaVerifier(
