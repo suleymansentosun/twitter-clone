@@ -1,0 +1,17 @@
+.form__container {
+    height: 100%;
+}
+
+.form {
+    height: 90% !important;
+    display: flex;
+    flex-direction: column;
+}
+
+.form__body {
+    flex: 1;
+}
+
+.birth__day {
+    margin-bottom: 50px;
+}
