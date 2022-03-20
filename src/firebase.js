@@ -35,6 +35,7 @@ export const fetchUserDocument = async (authenticatedUser, formValues=null, prov
         let username = await generateUsername(formValues.name);
 
         await userRef.set({
+          creation: new Date(),
           name: formValues.name,
           username: username,
           email: "email" in formValues ? formValues.email : "",
@@ -47,6 +48,7 @@ export const fetchUserDocument = async (authenticatedUser, formValues=null, prov
         let username = await generateUsername(providerInformation.displayName);
 
         await userRef.set({
+          creation: new Date(),
           name: providerInformation.displayName,
           username: username,
           email: providerInformation.email,

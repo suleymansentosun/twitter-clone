@@ -92,7 +92,11 @@ function HomePage() {
     extractPossibleUsersForFollowing(notSuitableUsersForFollowing, 'users').then(
       result => {
         result.sort( (userA, userB) => userB.data.followerCount - userA.data.followerCount );
-        let mostFollowedUsers = result.slice(0, 3);
+        let mostFollowedUsers = result.slice(0, 2);
+        result.sort( (userA, userB) => userB.data.creation - userA.data.creation );
+        if (result.length > 0 && !mostFollowedUsers.includes(result[0])) {
+          mostFollowedUsers.push(result[0]);
+        }
         setMostFollowedUsers(mostFollowedUsers);
       }
     )
@@ -298,7 +302,6 @@ function HomePage() {
             }            
           }
           if (change.type === "removed") {
-            // feedTweets dizisini dolaş, silinen doc'u bulup bu diziden de sil
             for(var i = feedsTweets.length - 1; i >= 0; i--) {
               if (feedsTweets[i].id === change.doc.id || feedsTweets[i].retweetedTweetId === change.doc.id) {
                 feedsTweets.splice(i, 1);

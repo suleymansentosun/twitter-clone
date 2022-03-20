@@ -523,9 +523,16 @@ function TweetBox(props) {
             `users/${follower.id}/feeds`,
             `${tweetId}`
           );
-          await updateDoc(retweetedFeedTweetDocRef, {
-            retweetCount: increment,
-          });
+
+          const retweetedFeedTweetSnap = await getDoc(
+            retweetedFeedTweetDocRef
+          );
+
+          if (retweetedFeedTweetSnap.exists()) {
+            await updateDoc(retweetedFeedTweetDocRef, {
+              retweetCount: increment,
+            }); 
+          }
         })
       );
 
@@ -535,9 +542,14 @@ function TweetBox(props) {
           `users/${author.id}/feeds`,
           `${tweetId}`
         );
-        await updateDoc(retweetedTweetBelongToAuthorFeed, {
-          retweetCount: increment,
-        });
+        const retweetedTweetBelongToAuthorFeedSnap = await getDoc(
+          retweetedTweetBelongToAuthorFeed
+        );
+        if (retweetedTweetBelongToAuthorFeedSnap.exists()) {
+          await updateDoc(retweetedTweetBelongToAuthorFeed, {
+            retweetCount: increment,
+          });
+        }
       }
 
       const retweetedTweetDocRef = doc(db, "tweets", `${tweetId}`);
@@ -664,9 +676,16 @@ function TweetBox(props) {
             `users/${follower.id}/feeds`,
             `${tweetId}`
           );
-          await updateDoc(retweetedFeedTweetDocRef, {
-            retweetCount: decrement,
-          });
+
+          const retweetedFeedTweetSnap = await getDoc(
+            retweetedFeedTweetDocRef
+          );
+
+          if (retweetedFeedTweetSnap.exists()) {
+            await updateDoc(retweetedFeedTweetDocRef, {
+              retweetCount: decrement,
+            });
+          }
         })
       );
 
@@ -676,9 +695,14 @@ function TweetBox(props) {
           `users/${author.id}/feeds`,
           `${tweetId}`
         );
-        await updateDoc(retweetedTweetBelongToAuthorFeed, {
-          retweetCount: decrement,
-        });
+        const retweetedTweetBelongToAuthorFeedSnap = await getDoc(
+          retweetedTweetBelongToAuthorFeed
+        );
+        if (retweetedTweetBelongToAuthorFeedSnap.exists()) {
+          await updateDoc(retweetedTweetBelongToAuthorFeed, {
+            retweetCount: decrement,
+          });
+        }
       }
 
       const retweetedTweetDocRef = doc(db, "tweets", `${tweetId}`);
@@ -707,9 +731,12 @@ function TweetBox(props) {
                     `users/${follower.id}/feeds`,
                     `${retweeter.data().retweetId}`
                   );
-                  await updateDoc(likedFeedTweetDocRef, {
-                    modification: new Date(),
-                  });
+                  const likedFeedTweetSnap = await getDoc(likedFeedTweetDocRef);
+                  if (likedFeedTweetSnap.exists()) {
+                    await updateDoc(likedFeedTweetDocRef, {
+                      modification: new Date(),
+                    });
+                  }
                 })
               );
             }
@@ -776,7 +803,6 @@ function TweetBox(props) {
         doc(db, `tweets/${tweetId}/bookmarks`, `${auth.currentUser.uid}`),
         {}
       );
-      // User altında bir bookmarks collection'ı yapmaya karar verirsek oraya eklenecek
     } else {
       setBookmarked(false);
       await deleteDoc(
