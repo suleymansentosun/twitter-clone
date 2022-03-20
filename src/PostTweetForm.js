@@ -189,7 +189,7 @@ function PostTweetForm(props) {
     <div className={classes.formContainer}>
       <form onSubmit={formik.handleSubmit}>
         <Grid container sm direction="column" rowSpacing={2}>
-          <Grid item style={{ paddingTop: "26px" }}>
+          <Grid item>
             <Input
               id="tweet"
               name="tweet"

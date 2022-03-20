@@ -136,12 +136,10 @@ function Header() {
         <Grid
           item
           direction={smallScreen ? "column" : "row"}
-          rowSpacing={2}
           container
           justifyContent="flex-start"
           xs
           alignItems={smallScreen ? "flex-start" : "center"}
-          columnSpacing={2}
           order={{ xs: 2, sm: 1 }}
         >
           <Grid item xs={8}>
