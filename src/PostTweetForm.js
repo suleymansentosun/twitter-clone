@@ -100,6 +100,7 @@ function PostTweetForm(props) {
           type: "normal",
         });
   
+        resetForm({});
         afterSubmitAction(false);
       } else if (type === "reply") {
         const tweetsdocRef = await addDoc(collection(db, "tweets"), {
