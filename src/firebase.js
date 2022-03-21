@@ -70,7 +70,7 @@ export const fetchUserDocument = async (authenticatedUser, formValues=null, prov
         // Sitenin geliştiricisi olan Süleyman Şentosun'un followers'larına henüz üye olan bu kişi eklensin.
         await setDoc(doc(db, `users/m1daA2NpVlRUmVySVQ9ytYlK4Mi1/followers`, authenticatedUser.uid), {});
         // Henüz üye olan bu kişinin feed'ine Süleyman Şentosun'un 'welcome tweet'leri eklensin.
-        const welcomeTweetIds = ["3APLvO7p7kySP0ekREs4", "94p09AgZC3PjcQKq584C", "HIcDC0fOupPWh0uCM0Xt", "IH8FhYgW1Dpmm1l62E2o", "sDDaPV1AxhJwXMx6NNHn", "x5GLBKqFCYvarkwQAENq"];
+        const welcomeTweetIds = ["0apNYrz4a1O8vgKoQdeZ", "0u8XqxGWKc0BgtDkrgRV", "6aPvebvmquNCkFTnnRAg", "6sJ6vy2HpY7QkQvJENx7", "CZZFkqzcKvhfdSPSnjUI", "yFVNO5Ymx7q0oWTL6p8X"];
         for (const tweetId of welcomeTweetIds) {
           // tweet doc verilerini elde et
           const tweetRef = doc(db, "tweets", tweetId);
