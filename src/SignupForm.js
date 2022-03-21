@@ -363,7 +363,7 @@ function SignupForm() {
               <KeyboardDatePicker
                 id="date"
                 clearable
-                placeholder="Birthday"
+                placeholder="MM/DD/YYYY"
                 disableFuture
                 value={formik.values.date}
                 onChange={(value) => {

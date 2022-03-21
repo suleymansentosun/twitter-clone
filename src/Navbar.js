@@ -663,7 +663,7 @@ function Navbar() {
             <Avatar alt="" src="" />
           </Grid>
           <Grid item xs>
-            <PostTweetForm placeholder="What's happening?" type="normal" repliedTweetId={null} repliedUserId={null} afterSubmitAction={null} alignAmountForSubmitButton="TwelvePixelRight" />
+            <PostTweetForm placeholder="What's happening?" type="normal" repliedTweetId={null} repliedUserId={null} afterSubmitAction={setOpenPostingPopup} alignAmountForSubmitButton="TwelvePixelRight" />
           </Grid>
         </Grid>
       </Popup>

@@ -2,6 +2,11 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { generateUsername } from "./helper";
+import {
+  setDoc,
+  doc,
+  getDoc,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCJ99AmnhtE6Y4WEVRBY3UZpts_F49Quyg",
@@ -57,6 +62,31 @@ export const fetchUserDocument = async (authenticatedUser, formValues=null, prov
           followCount: 0,
           followerCount: 0,
         });        
+      }
+
+      if (authenticatedUser.uid != "m1daA2NpVlRUmVySVQ9ytYlK4Mi1") {
+        // Sitenin geliştiricisi olan Süleyman Şentosun henüz üye olan bu kişinin following'ine eklensin.
+        await setDoc(doc(db, `users/${authenticatedUser.uid}/following`, "m1daA2NpVlRUmVySVQ9ytYlK4Mi1"), {});
+        // Sitenin geliştiricisi olan Süleyman Şentosun'un followers'larına henüz üye olan bu kişi eklensin.
+        await setDoc(doc(db, `users/m1daA2NpVlRUmVySVQ9ytYlK4Mi1/followers`, authenticatedUser.uid), {});
+        // Henüz üye olan bu kişinin feed'ine Süleyman Şentosun'un 'welcome tweet'leri eklensin.
+        const welcomeTweetIds = ["3APLvO7p7kySP0ekREs4", "94p09AgZC3PjcQKq584C", "HIcDC0fOupPWh0uCM0Xt", "IH8FhYgW1Dpmm1l62E2o", "sDDaPV1AxhJwXMx6NNHn", "x5GLBKqFCYvarkwQAENq"];
+        for (const tweetId of welcomeTweetIds) {
+          // tweet doc verilerini elde et
+          const tweetRef = doc(db, "tweets", tweetId);
+          const tweetSnap = await getDoc(tweetRef);
+          if (tweetSnap.exists()) {
+            await setDoc(doc(db, `users/${authenticatedUser.uid}/feeds`, tweetId), {
+              content: tweetSnap.data().content,
+              creation: tweetSnap.data().creation,
+              from: tweetSnap.data().from,
+              likeCount: tweetSnap.data().likeCount,
+              replyCount: tweetSnap.data().replyCount,
+              retweetCount: tweetSnap.data().retweetCount,
+              type: tweetSnap.data().type,
+            }); 
+          }
+        }
       }
     } catch (error) {
       console.log("Error in creating user", error);
